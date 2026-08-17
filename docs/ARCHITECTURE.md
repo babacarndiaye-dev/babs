@@ -337,14 +337,14 @@ tests/
 
 | Phase | Contenu | Statut |
 |---|---|---|
-| 1 | Analyse des besoins (ce document) | ✅ En cours de validation |
-| 2 | Conception UX/UI (maquettes, design system) | À venir |
-| 3 | Conception base de données (migrations + ERD final) | À venir |
-| 4 | Mise en place architecture (skeleton Laravel, CI, environnements) | À venir |
-| 5 | Authentification & rôles (multi-guards, Spatie Permission) | À venir |
-| 6 | Paramètres de l'établissement | À venir |
-| 7 | Formations (catalogue public + gestion admin) | À venir |
-| 8 | Admissions (candidature en ligne + suivi + gestion admin) | À venir |
+| 1 | Analyse des besoins (ce document) | ✅ Fait |
+| 2 | Conception UX/UI (maquettes, design system) | ✅ Fait (design system Tailwind intégré directement en construisant) |
+| 3 | Conception base de données (migrations + ERD final) | ✅ Fait (45 tables, ~35 modèles) |
+| 4 | Mise en place architecture (skeleton Laravel, CI, environnements) | ✅ Fait |
+| 5 | Authentification & rôles (Spatie Permission, guard unique + rôles) | ✅ Fait |
+| 6 | Paramètres de l'établissement | ✅ Fait |
+| 7 | Formations (catalogue public + gestion admin) | ✅ Fait |
+| 8 | Admissions (candidature en ligne + suivi + gestion admin) | ✅ Fait |
 | 9 | Étudiants (profils, portail) | À venir |
 | 10 | Enseignants / Classes / Matières | À venir |
 | 11 | Emploi du temps & présences | À venir |

@@ -54,6 +54,7 @@ class User extends Authenticatable
             $this->hasAnyRole(['super-admin', 'directeur', 'administrateur', 'responsable-academique', 'scolarite', 'comptable']) => 'admin.dashboard',
             $this->hasRole('enseignant') => 'teacher.dashboard',
             $this->hasRole('etudiant') => 'student.dashboard',
+            $this->hasRole('candidat') => 'candidate.dashboard',
             default => 'home',
         };
     }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Auth\Login;
+use App\Livewire\Public\Admissions\Start as AdmissionsStart;
+use App\Livewire\Public\Admissions\Track as AdmissionsTrack;
 use App\Livewire\Public\Formations\Index as FormationsIndex;
 use App\Livewire\Public\Formations\Show as FormationsShow;
 use App\Livewire\Public\Home;
@@ -14,8 +16,9 @@ Route::get('/etablissement', fn () => view('public.placeholder', ['title' => "L'
 Route::get('/formations', FormationsIndex::class)->name('formations.index');
 Route::get('/formations/{slug}', FormationsShow::class)->name('formations.show');
 
-Route::get('/admissions', fn () => view('public.placeholder', ['title' => 'Admissions', 'phase' => 'Phase 8']))->name('admissions');
-Route::get('/admissions/candidater', fn () => view('public.placeholder', ['title' => 'Candidater', 'phase' => 'Phase 8']))->name('admissions.apply');
+Route::get('/admissions', fn () => view('public.placeholder', ['title' => 'Admissions', 'phase' => 'Phase 16']))->name('admissions');
+Route::get('/admissions/candidater', AdmissionsStart::class)->name('admissions.apply');
+Route::get('/admissions/suivi', AdmissionsTrack::class)->name('admissions.track');
 
 Route::get('/actualites', fn () => view('public.placeholder', ['title' => 'Actualités', 'phase' => 'Phase 16']))->name('news.index');
 Route::get('/galerie', fn () => view('public.placeholder', ['title' => 'Galerie', 'phase' => 'Phase 16']))->name('gallery');
@@ -48,3 +51,8 @@ Route::middleware(['auth', 'role:etudiant'])
     ->prefix('etudiant')
     ->name('student.')
     ->group(base_path('routes/student.php'));
+
+Route::middleware(['auth', 'role:candidat'])
+    ->prefix('candidat')
+    ->name('candidate.')
+    ->group(base_path('routes/candidate.php'));
