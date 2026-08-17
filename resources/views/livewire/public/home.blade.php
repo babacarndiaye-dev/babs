@@ -43,8 +43,12 @@
                         </a>
                     </div>
                 </div>
-                <div class="relative hidden lg:flex aspect-[4/3] items-center justify-center rounded-3xl bg-white/10 backdrop-blur border border-white/10 shadow-2xl">
-                    <x-nav-icon name="academic-cap" class="h-24 w-24 text-white/70" />
+                <div class="relative hidden lg:flex aspect-[4/3] items-center justify-center rounded-3xl bg-white/10 backdrop-blur border border-white/10 shadow-2xl p-12">
+                    @if ($logo = setting('identity.logo'))
+                        <img src="{{ $logo }}" alt="{{ setting('identity.acronym') }}" class="max-h-full max-w-full rounded-2xl shadow-xl">
+                    @else
+                        <x-nav-icon name="academic-cap" class="h-24 w-24 text-white/70" />
+                    @endif
                 </div>
             </div>
 

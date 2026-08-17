@@ -18,6 +18,7 @@ class SettingsSeeder extends Seeder
             // Identité
             ['key' => 'identity.name', 'value' => 'Elite École Hôtelière et Touristique', 'type' => 'string', 'group' => 'identity', 'label' => "Nom de l'établissement"],
             ['key' => 'identity.acronym', 'value' => 'EEHT', 'type' => 'string', 'group' => 'identity', 'label' => 'Sigle'],
+            ['key' => 'identity.logo', 'value' => '/images/logo-eeht.svg', 'type' => 'string', 'group' => 'identity', 'label' => 'Logo (URL)'],
             ['key' => 'identity.slogan', 'value' => 'Construisez votre avenir professionnel.', 'type' => 'string', 'group' => 'identity', 'label' => 'Slogan'],
             ['key' => 'identity.address', 'value' => 'Dakar, Sénégal', 'type' => 'string', 'group' => 'identity', 'label' => 'Adresse'],
             ['key' => 'identity.phone', 'value' => '+221 33 000 00 00', 'type' => 'string', 'group' => 'identity', 'label' => 'Téléphone'],

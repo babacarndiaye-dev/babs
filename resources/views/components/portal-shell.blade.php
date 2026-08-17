@@ -4,9 +4,13 @@
     <div class="flex min-h-screen bg-surface">
         <aside class="hidden lg:flex w-64 flex-col border-r border-black/5 bg-white">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5 px-6 py-5 font-semibold text-ink border-b border-black/5">
-                <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white text-sm font-bold shadow-sm">
-                    {{ setting('identity.acronym', 'EC') }}
-                </span>
+                @if ($logo = setting('identity.logo'))
+                    <img src="{{ $logo }}" alt="{{ setting('identity.acronym') }}" class="h-9 w-9 rounded-xl shadow-sm object-cover">
+                @else
+                    <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white text-sm font-bold shadow-sm">
+                        {{ setting('identity.acronym', 'EC') }}
+                    </span>
+                @endif
                 <span class="leading-tight">
                     <span class="block text-sm font-bold">{{ setting('identity.acronym') }}</span>
                     <span class="block text-[11px] font-normal text-ink/50">{{ setting('identity.name') }}</span>

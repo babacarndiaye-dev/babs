@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Logo Elite École Hôtelière et Touristique (EEHT)">
+  <defs>
+    <radialGradient id="eehtBg" cx="50%" cy="34%" r="80%">
+      <stop offset="0%" stop-color="#ea4fa8"/>
+      <stop offset="55%" stop-color="#c21c8e"/>
+      <stop offset="100%" stop-color="#6e0f57"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="2" y="2" width="236" height="236" rx="26" fill="url(#eehtBg)" stroke="#4a0a3d" stroke-width="2"/>
+
+  <text font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="24" fill="#ffffff">
+    <tspan x="66" y="42" text-anchor="middle">Elite</tspan>
+    <tspan x="174" y="42" text-anchor="middle">Ecole</tspan>
+  </text>
+
+  <text x="120" y="118" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900"
+        font-size="66" letter-spacing="1" fill="#ffffff" stroke="#1a1a1a" stroke-width="3" paint-order="stroke">
+    EEHT
+  </text>
+
+  <path d="M26 140 Q120 182 214 134 L214 150 Q120 196 26 156 Z" fill="#82d94a"/>
+
+  <text x="120" y="180" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700"
+        font-size="16" fill="#ffffff">
+    Hôtelière &amp; Touristique
+  </text>
+
+  <text x="120" y="202" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="600"
+        font-size="10" letter-spacing="2.5" fill="#f4cfe6">
+    — DOUDOU DIOP —
+  </text>
+</svg>

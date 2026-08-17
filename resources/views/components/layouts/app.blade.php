@@ -11,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? setting('identity.name', 'École') }}</title>
     <meta name="description" content="{{ setting('identity.slogan', '') }}">
+    @if ($logo = setting('identity.logo'))
+        <link rel="icon" href="{{ $logo }}" type="image/svg+xml">
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>

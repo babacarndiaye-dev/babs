@@ -41,8 +41,13 @@
     <footer class="mt-24 border-t border-black/5 bg-primary text-white/90">
         <div class="mx-auto max-w-7xl px-6 py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-                <p class="font-semibold text-white text-lg">{{ setting('identity.acronym') }}</p>
-                <p class="mt-2 text-sm text-white/70">{{ setting('identity.slogan') }}</p>
+                <div class="flex items-center gap-3">
+                    @if ($logo = setting('identity.logo'))
+                        <img src="{{ $logo }}" alt="{{ setting('identity.acronym') }}" class="h-10 w-10 rounded-lg">
+                    @endif
+                    <p class="font-semibold text-white text-lg">{{ setting('identity.acronym') }}</p>
+                </div>
+                <p class="mt-3 text-sm text-white/70">{{ setting('identity.slogan') }}</p>
             </div>
             <div>
                 <p class="font-semibold text-white">Contact</p>
