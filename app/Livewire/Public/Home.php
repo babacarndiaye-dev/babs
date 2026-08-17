@@ -23,6 +23,12 @@ class Home extends Component
     }
 
     #[Computed]
+    public function heroFormations()
+    {
+        return $this->formations->take(3);
+    }
+
+    #[Computed]
     public function stats(): array
     {
         return [
