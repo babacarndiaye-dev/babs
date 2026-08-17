@@ -10,6 +10,7 @@
     ['label' => 'Classes', 'route' => 'admin.classes.index'],
     ['label' => 'Bulletins', 'route' => 'admin.report-cards.index'],
     ['label' => 'Finance', 'route' => 'admin.finance.index'],
+    ['label' => 'Documents', 'route' => 'admin.documents.index'],
     ['label' => 'Actualités & Galerie', 'route' => 'admin.communication.index'],
     ['label' => 'Utilisateurs & Rôles', 'route' => 'admin.users.index'],
     ['label' => 'Paramètres', 'route' => 'admin.settings.index'],

@@ -351,8 +351,8 @@ tests/
 | 12 | Évaluations & notes | ✅ Fait |
 | 13 | Bulletins (PDF configurables) | ✅ Fait |
 | 14 | Finance (frais, factures, paiements, reçus) | ✅ Fait (échéanciers automatiques non couverts — factures créées manuellement) |
-| 15 | Documents & vérification QR | À venir |
-| 16 | Actualités, événements, galerie (CMS) | À venir |
+| 15 | Documents & vérification QR | ✅ Fait |
+| 16 | Actualités, événements, galerie (CMS) | ✅ Fait |
 | 17 | Notifications | À venir |
 | 18 | Tests & sécurité (audit, durcissement) | À venir |
 

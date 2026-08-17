@@ -5,7 +5,13 @@ use App\Livewire\Admin\Applications\Show as ApplicationsShow;
 use App\Livewire\Admin\Classes\Form as ClassForm;
 use App\Livewire\Admin\Classes\Index as ClassesIndex;
 use App\Livewire\Admin\Classes\Show as ClassesShow;
+use App\Livewire\Admin\Communication\Events\Form as EventForm;
+use App\Livewire\Admin\Communication\Events\Index as EventsIndex;
+use App\Livewire\Admin\Communication\Gallery\Index as GalleryIndex;
+use App\Livewire\Admin\Communication\News\Form as NewsForm;
+use App\Livewire\Admin\Communication\News\Index as NewsIndex;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\Documents\Index as DocumentsIndex;
 use App\Livewire\Admin\Finance\FeeTypes\Index as FeeTypesIndex;
 use App\Livewire\Admin\Finance\Invoices\Form as InvoiceForm;
 use App\Livewire\Admin\Finance\Invoices\Index as InvoicesIndex;
@@ -20,6 +26,9 @@ use App\Livewire\Admin\Students\Show as StudentsShow;
 use App\Livewire\Admin\Subjects\Index as SubjectsIndex;
 use App\Livewire\Admin\Teachers\Form as TeacherForm;
 use App\Livewire\Admin\Teachers\Index as TeachersIndex;
+use App\Models\Event;
+use App\Models\GalleryItem;
+use App\Models\News;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Dashboard::class)->name('dashboard');
@@ -55,5 +64,23 @@ Route::get('/finance/factures/creer', InvoiceForm::class)->name('finance.invoice
 Route::get('/finance/factures/{invoice}', InvoicesShow::class)->name('finance.invoices.show');
 Route::get('/finance/types-de-frais', FeeTypesIndex::class)->name('finance.fee-types.index');
 
-Route::get('/communication', fn () => view('admin.placeholder', ['title' => 'Actualités & Galerie', 'phase' => 'Phase 16']))->name('communication.index');
+Route::get('/documents', DocumentsIndex::class)->name('documents.index');
+
+Route::get('/communication', function () {
+    return view('admin.communication.hub', [
+        'newsCount' => News::count(),
+        'eventsCount' => Event::count(),
+        'galleryCount' => GalleryItem::count(),
+    ]);
+})->name('communication.index');
+
+Route::get('/communication/actualites', NewsIndex::class)->name('communication.news.index');
+Route::get('/communication/actualites/creer', NewsForm::class)->name('communication.news.create');
+Route::get('/communication/actualites/{news}/modifier', NewsForm::class)->name('communication.news.edit');
+
+Route::get('/communication/evenements', EventsIndex::class)->name('communication.events.index');
+Route::get('/communication/evenements/creer', EventForm::class)->name('communication.events.create');
+Route::get('/communication/evenements/{event}/modifier', EventForm::class)->name('communication.events.edit');
+
+Route::get('/communication/galerie', GalleryIndex::class)->name('communication.gallery.index');
 Route::get('/utilisateurs', fn () => view('admin.placeholder', ['title' => 'Utilisateurs & Rôles', 'phase' => 'Phase 5 (extension)']))->name('users.index');

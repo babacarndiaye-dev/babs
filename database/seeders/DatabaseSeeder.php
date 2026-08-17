@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             SettingsSeeder::class,
             FinanceSeeder::class,
+            DocumentTemplateSeeder::class,
             DemoSchoolSeeder::class,
         ]);
     }

@@ -1,13 +1,18 @@
 <?php
 
+use App\Http\Controllers\DocumentPdfController;
 use App\Http\Controllers\ReceiptPdfController;
 use App\Http\Controllers\ReportCardPdfController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Public\Admissions\Start as AdmissionsStart;
 use App\Livewire\Public\Admissions\Track as AdmissionsTrack;
+use App\Livewire\Public\Documents\Verify as DocumentsVerify;
 use App\Livewire\Public\Formations\Index as FormationsIndex;
 use App\Livewire\Public\Formations\Show as FormationsShow;
+use App\Livewire\Public\Gallery;
 use App\Livewire\Public\Home;
+use App\Livewire\Public\News\Index as NewsIndex;
+use App\Livewire\Public\News\Show as NewsShow;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +27,11 @@ Route::get('/admissions', fn () => view('public.placeholder', ['title' => 'Admis
 Route::get('/admissions/candidater', AdmissionsStart::class)->name('admissions.apply');
 Route::get('/admissions/suivi', AdmissionsTrack::class)->name('admissions.track');
 
-Route::get('/actualites', fn () => view('public.placeholder', ['title' => 'Actualités', 'phase' => 'Phase 16']))->name('news.index');
-Route::get('/galerie', fn () => view('public.placeholder', ['title' => 'Galerie', 'phase' => 'Phase 16']))->name('gallery');
+Route::get('/actualites', NewsIndex::class)->name('news.index');
+Route::get('/actualites/{slug}', NewsShow::class)->name('news.show');
+Route::get('/galerie', Gallery::class)->name('gallery');
 Route::get('/contact', fn () => view('public.placeholder', ['title' => 'Contact', 'phase' => 'Phase 16']))->name('contact');
-Route::get('/verification-document', fn () => view('public.placeholder', ['title' => 'Vérification de document', 'phase' => 'Phase 15']))->name('documents.verify');
+Route::get('/verification-document', DocumentsVerify::class)->name('documents.verify');
 
 Route::middleware('guest')->group(function () {
     Route::get('/connexion', Login::class)->name('login');
@@ -38,6 +44,10 @@ Route::get('/bulletins/{reportCard}', [ReportCardPdfController::class, 'show'])
 Route::get('/recus/{payment}', [ReceiptPdfController::class, 'show'])
     ->middleware('auth')
     ->name('receipts.pdf');
+
+Route::get('/documents/{document}', [DocumentPdfController::class, 'show'])
+    ->middleware('auth')
+    ->name('documents.pdf');
 
 Route::post('/deconnexion', function () {
     Auth::logout();
