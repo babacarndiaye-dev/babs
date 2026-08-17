@@ -13,7 +13,7 @@ class Dashboard extends Component
         $teacher = auth()->user()->teacher;
 
         return view('livewire.teacher.dashboard', [
-            'classesCount' => $teacher?->schedules()->distinct('class_id')->count('class_id') ?? 0,
+            'classesCount' => $teacher?->classAssignments()->distinct('class_id')->count('class_id') ?? 0,
         ]);
     }
 }

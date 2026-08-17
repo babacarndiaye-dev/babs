@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AcademicYear;
+use App\Models\ClassSubjectTeacher;
 use App\Models\Domain;
 use App\Models\Formation;
 use App\Models\FormationType;
@@ -155,10 +156,22 @@ class DemoSchoolSeeder extends Seeder
             ['name' => 'Aïssatou Ndiaye', 'password' => bcrypt('password')]
         );
         $teacherUser->assignRole('enseignant');
-        Teacher::updateOrCreate(
+        $teacher = Teacher::updateOrCreate(
             ['user_id' => $teacherUser->id],
             ['matricule' => 'ENS-0001', 'first_name' => 'Aïssatou', 'last_name' => 'Ndiaye', 'specialty' => 'Informatique', 'is_active' => true]
         );
+
+        $subjects = Subject::whereIn('code', ['INFORMATIQUE_APPLIQUEE', 'MATHEMATIQUES'])->get()->keyBy('code');
+        $btsClass = $classes->firstWhere('formation_id', Formation::where('slug', 'bts-informatique')->value('id'));
+
+        if ($btsClass) {
+            foreach ($subjects as $subject) {
+                ClassSubjectTeacher::updateOrCreate(
+                    ['class_id' => $btsClass->id, 'subject_id' => $subject->id, 'academic_year_id' => $year->id],
+                    ['teacher_id' => $teacher->id, 'coefficient' => 2]
+                );
+            }
+        }
 
         collect([
             ['first' => 'Moussa', 'last' => 'Diop', 'matricule' => 'ETU-0001'],

@@ -1,12 +1,14 @@
 <?php
 
 use App\Livewire\Student\Dashboard;
+use App\Livewire\Student\MyFormation;
+use App\Livewire\Student\Profile;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Dashboard::class)->name('dashboard');
 
-Route::get('/profil', fn () => view('student.placeholder', ['title' => 'Mon profil', 'phase' => 'Phase 9']))->name('profile');
-Route::get('/formation', fn () => view('student.placeholder', ['title' => 'Ma formation', 'phase' => 'Phase 9']))->name('formation');
+Route::get('/profil', Profile::class)->name('profile');
+Route::get('/formation', MyFormation::class)->name('formation');
 Route::get('/emploi-du-temps', fn () => view('student.placeholder', ['title' => 'Emploi du temps', 'phase' => 'Phase 11']))->name('schedule');
 Route::get('/notes', fn () => view('student.placeholder', ['title' => 'Mes notes', 'phase' => 'Phase 12']))->name('grades');
 Route::get('/absences', fn () => view('student.placeholder', ['title' => 'Mes absences', 'phase' => 'Phase 11']))->name('attendances');

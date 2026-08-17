@@ -49,4 +49,9 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Schedule::class, 'class_id');
     }
+
+    public function subjectAssignments(): HasMany
+    {
+        return $this->hasMany(ClassSubjectTeacher::class, 'class_id');
+    }
 }

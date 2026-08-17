@@ -345,8 +345,8 @@ tests/
 | 6 | Paramètres de l'établissement | ✅ Fait |
 | 7 | Formations (catalogue public + gestion admin) | ✅ Fait |
 | 8 | Admissions (candidature en ligne + suivi + gestion admin) | ✅ Fait |
-| 9 | Étudiants (profils, portail) | À venir |
-| 10 | Enseignants / Classes / Matières | À venir |
+| 9 | Étudiants (profils, portail) | ✅ Fait |
+| 10 | Enseignants / Classes / Matières | ✅ Fait |
 | 11 | Emploi du temps & présences | À venir |
 | 12 | Évaluations & notes | À venir |
 | 13 | Bulletins (PDF configurables) | À venir |

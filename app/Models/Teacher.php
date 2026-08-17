@@ -36,6 +36,11 @@ class Teacher extends Model implements HasMedia
         return $this->hasMany(Schedule::class);
     }
 
+    public function classAssignments(): HasMany
+    {
+        return $this->hasMany(ClassSubjectTeacher::class);
+    }
+
     public function fullName(): string
     {
         return "{$this->first_name} {$this->last_name}";
