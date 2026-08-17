@@ -31,6 +31,7 @@ class Grades extends Component
 
         return view('livewire.student.grades', [
             'bySubject' => $bySubject,
+            'reportCards' => $student?->reportCards()->whereNotNull('published_at')->latest('published_at')->get() ?? collect(),
         ]);
     }
 }

@@ -8,6 +8,7 @@
     ['label' => 'Formations', 'route' => 'admin.formations.index'],
     ['label' => 'Matières', 'route' => 'admin.subjects.index'],
     ['label' => 'Classes', 'route' => 'admin.classes.index'],
+    ['label' => 'Bulletins', 'route' => 'admin.report-cards.index'],
     ['label' => 'Finance', 'route' => 'admin.finance.index'],
     ['label' => 'Actualités & Galerie', 'route' => 'admin.communication.index'],
     ['label' => 'Utilisateurs & Rôles', 'route' => 'admin.users.index'],

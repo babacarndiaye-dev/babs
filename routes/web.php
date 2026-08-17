@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ReceiptPdfController;
+use App\Http\Controllers\ReportCardPdfController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Public\Admissions\Start as AdmissionsStart;
 use App\Livewire\Public\Admissions\Track as AdmissionsTrack;
@@ -28,6 +30,14 @@ Route::get('/verification-document', fn () => view('public.placeholder', ['title
 Route::middleware('guest')->group(function () {
     Route::get('/connexion', Login::class)->name('login');
 });
+
+Route::get('/bulletins/{reportCard}', [ReportCardPdfController::class, 'show'])
+    ->middleware('auth')
+    ->name('report-cards.pdf');
+
+Route::get('/recus/{payment}', [ReceiptPdfController::class, 'show'])
+    ->middleware('auth')
+    ->name('receipts.pdf');
 
 Route::post('/deconnexion', function () {
     Auth::logout();

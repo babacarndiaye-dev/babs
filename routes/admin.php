@@ -6,8 +6,13 @@ use App\Livewire\Admin\Classes\Form as ClassForm;
 use App\Livewire\Admin\Classes\Index as ClassesIndex;
 use App\Livewire\Admin\Classes\Show as ClassesShow;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\Finance\FeeTypes\Index as FeeTypesIndex;
+use App\Livewire\Admin\Finance\Invoices\Form as InvoiceForm;
+use App\Livewire\Admin\Finance\Invoices\Index as InvoicesIndex;
+use App\Livewire\Admin\Finance\Invoices\Show as InvoicesShow;
 use App\Livewire\Admin\Formations\Form as FormationForm;
 use App\Livewire\Admin\Formations\Index as FormationsIndex;
+use App\Livewire\Admin\ReportCards\Index as ReportCardsIndex;
 use App\Livewire\Admin\Settings\Index as SettingsIndex;
 use App\Livewire\Admin\Students\Form as StudentForm;
 use App\Livewire\Admin\Students\Index as StudentsIndex;
@@ -43,6 +48,12 @@ Route::get('/classes/creer', ClassForm::class)->name('classes.create');
 Route::get('/classes/{class}', ClassesShow::class)->name('classes.show');
 Route::get('/classes/{class}/modifier', ClassForm::class)->name('classes.edit');
 
-Route::get('/finance', fn () => view('admin.placeholder', ['title' => 'Finance', 'phase' => 'Phase 14']))->name('finance.index');
+Route::get('/bulletins', ReportCardsIndex::class)->name('report-cards.index');
+
+Route::get('/finance', InvoicesIndex::class)->name('finance.index');
+Route::get('/finance/factures/creer', InvoiceForm::class)->name('finance.invoices.create');
+Route::get('/finance/factures/{invoice}', InvoicesShow::class)->name('finance.invoices.show');
+Route::get('/finance/types-de-frais', FeeTypesIndex::class)->name('finance.fee-types.index');
+
 Route::get('/communication', fn () => view('admin.placeholder', ['title' => 'Actualités & Galerie', 'phase' => 'Phase 16']))->name('communication.index');
 Route::get('/utilisateurs', fn () => view('admin.placeholder', ['title' => 'Utilisateurs & Rôles', 'phase' => 'Phase 5 (extension)']))->name('users.index');

@@ -349,8 +349,8 @@ tests/
 | 10 | Enseignants / Classes / Matières | ✅ Fait |
 | 11 | Emploi du temps & présences | ✅ Fait |
 | 12 | Évaluations & notes | ✅ Fait |
-| 13 | Bulletins (PDF configurables) | À venir |
-| 14 | Finance (frais, factures, paiements, reçus, échéanciers) | À venir |
+| 13 | Bulletins (PDF configurables) | ✅ Fait |
+| 14 | Finance (frais, factures, paiements, reçus) | ✅ Fait (échéanciers automatiques non couverts — factures créées manuellement) |
 | 15 | Documents & vérification QR | À venir |
 | 16 | Actualités, événements, galerie (CMS) | À venir |
 | 17 | Notifications | À venir |
