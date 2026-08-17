@@ -347,8 +347,8 @@ tests/
 | 8 | Admissions (candidature en ligne + suivi + gestion admin) | ✅ Fait |
 | 9 | Étudiants (profils, portail) | ✅ Fait |
 | 10 | Enseignants / Classes / Matières | ✅ Fait |
-| 11 | Emploi du temps & présences | À venir |
-| 12 | Évaluations & notes | À venir |
+| 11 | Emploi du temps & présences | ✅ Fait |
+| 12 | Évaluations & notes | ✅ Fait |
 | 13 | Bulletins (PDF configurables) | À venir |
 | 14 | Finance (frais, factures, paiements, reçus, échéanciers) | À venir |
 | 15 | Documents & vérification QR | À venir |
