@@ -58,4 +58,14 @@ class User extends Authenticatable
             default => 'home',
         };
     }
+
+    public function routeNotificationForWhatsApp(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function routeNotificationForSms(): ?string
+    {
+        return $this->phone;
+    }
 }

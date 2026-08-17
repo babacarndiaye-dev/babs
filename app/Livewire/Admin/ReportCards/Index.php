@@ -7,6 +7,7 @@ use App\Models\GradingSystem;
 use App\Models\ReportCard;
 use App\Models\ReportCardLine;
 use App\Models\SchoolClass;
+use App\Notifications\ReportCardPublished;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -137,9 +138,15 @@ class Index extends Component
 
     public function publish(): void
     {
-        ReportCard::where('class_id', $this->classId)
+        $cards = ReportCard::where('class_id', $this->classId)
             ->where('period', $this->period)
-            ->update(['published_at' => now()]);
+            ->with('student.user')
+            ->get();
+
+        foreach ($cards as $card) {
+            $card->update(['published_at' => now()]);
+            $card->student->user?->notify(new ReportCardPublished($card));
+        }
 
         session()->flash('status', 'Bulletins publiés — visibles par les étudiants.');
     }

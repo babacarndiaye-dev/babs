@@ -30,21 +30,25 @@
 
     @php
         $student = $document->documentable;
-        $formation = $student?->currentClass?->formation?->title ?? '—';
-        $class = $student?->currentClass?->name ?? '—';
-        $year = $student?->currentClass?->academicYear?->name ?? '—';
-
-        $schoolName = setting('identity.name');
+        // Escape every piece of user-influenced data before splicing it into
+        // raw HTML below — student names/matricules originate from
+        // self-service candidate registration, so they can't be trusted verbatim.
+        $formation = e($student?->currentClass?->formation?->title ?? '—');
+        $class = e($student?->currentClass?->name ?? '—');
+        $year = e($student?->currentClass?->academicYear?->name ?? '—');
+        $studentName = e($student?->fullName() ?? '—');
+        $matricule = e($student?->matricule ?? '—');
+        $schoolName = e(setting('identity.name'));
 
         $bodies = [
-            'certificat_scolarite' => "Le Directeur de {$schoolName} certifie que <strong>{$student?->fullName()}</strong>, titulaire du matricule <strong>{$student?->matricule}</strong>, est régulièrement inscrit(e) au titre de l'année académique <strong>{$year}</strong> en <strong>{$formation}</strong>, classe <strong>{$class}</strong>.<br><br>En foi de quoi le présent certificat lui est délivré pour servir et valoir ce que de droit.",
-            'attestation_reussite' => "Le Directeur de {$schoolName} atteste que <strong>{$student?->fullName()}</strong>, titulaire du matricule <strong>{$student?->matricule}</strong>, a suivi avec succès la formation <strong>{$formation}</strong> au titre de l'année académique <strong>{$year}</strong>.<br><br>En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.",
-            'certificat_fin_formation' => "Le Directeur de {$schoolName} certifie que <strong>{$student?->fullName()}</strong>, titulaire du matricule <strong>{$student?->matricule}</strong>, a suivi et achevé l'intégralité de la formation <strong>{$formation}</strong>.<br><br>En foi de quoi le présent certificat lui est délivré pour servir et valoir ce que de droit.",
+            'certificat_scolarite' => "Le Directeur de {$schoolName} certifie que <strong>{$studentName}</strong>, titulaire du matricule <strong>{$matricule}</strong>, est régulièrement inscrit(e) au titre de l'année académique <strong>{$year}</strong> en <strong>{$formation}</strong>, classe <strong>{$class}</strong>.<br><br>En foi de quoi le présent certificat lui est délivré pour servir et valoir ce que de droit.",
+            'attestation_reussite' => "Le Directeur de {$schoolName} atteste que <strong>{$studentName}</strong>, titulaire du matricule <strong>{$matricule}</strong>, a suivi avec succès la formation <strong>{$formation}</strong> au titre de l'année académique <strong>{$year}</strong>.<br><br>En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.",
+            'certificat_fin_formation' => "Le Directeur de {$schoolName} certifie que <strong>{$studentName}</strong>, titulaire du matricule <strong>{$matricule}</strong>, a suivi et achevé l'intégralité de la formation <strong>{$formation}</strong>.<br><br>En foi de quoi le présent certificat lui est délivré pour servir et valoir ce que de droit.",
         ];
     @endphp
 
     <div class="body-text">
-        {!! $bodies[$document->template->code] ?? "Document délivré à <strong>{$student?->fullName()}</strong>." !!}
+        {!! $bodies[$document->template->code] ?? "Document délivré à <strong>{$studentName}</strong>." !!}
     </div>
 
     <div class="footer">

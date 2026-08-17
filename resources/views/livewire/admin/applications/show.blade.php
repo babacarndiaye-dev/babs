@@ -29,7 +29,7 @@
                     @forelse ($application->documents as $document)
                         <div class="flex items-center justify-between rounded-lg border border-black/5 px-4 py-3">
                             <div>
-                                <a href="{{ Illuminate\Support\Facades\Storage::url($document->file_path) }}" target="_blank"
+                                <a href="{{ route('application-documents.show', $document) }}" target="_blank"
                                    class="text-sm font-medium text-primary hover:underline">{{ $document->document_type }}</a>
                             </div>
                             <div class="flex items-center gap-2">

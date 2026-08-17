@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Documents;
 use App\Models\Document;
 use App\Models\DocumentTemplate;
 use App\Models\Student;
+use App\Notifications\DocumentIssued;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
@@ -35,7 +36,7 @@ class Index extends Component
         $template = DocumentTemplate::findOrFail($this->document_template_id);
         $reference = $this->generateReference($template);
 
-        Document::create([
+        $document = Document::create([
             'document_template_id' => $template->id,
             'reference' => $reference,
             'documentable_type' => Student::class,
@@ -44,6 +45,9 @@ class Index extends Component
             'issued_by' => Auth::id(),
             'issued_at' => now(),
         ]);
+
+        $document->load('template');
+        Student::find($this->student_id)?->user?->notify(new DocumentIssued($document));
 
         $this->reset(['student_id', 'document_template_id']);
 

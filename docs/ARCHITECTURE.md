@@ -353,8 +353,8 @@ tests/
 | 14 | Finance (frais, factures, paiements, reçus) | ✅ Fait (échéanciers automatiques non couverts — factures créées manuellement) |
 | 15 | Documents & vérification QR | ✅ Fait |
 | 16 | Actualités, événements, galerie (CMS) | ✅ Fait |
-| 17 | Notifications | À venir |
-| 18 | Tests & sécurité (audit, durcissement) | À venir |
+| 17 | Notifications (in-app, e-mail, WhatsApp/SMS placeholders) | ✅ Fait |
+| 18 | Tests & sécurité (audit, durcissement) | ✅ Fait |
 
 Chaque phase = une itération livrable et testable indépendamment, avec seed de données de démonstration pour l'école pilote.
 

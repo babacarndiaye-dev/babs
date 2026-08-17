@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use App\Livewire\Concerns\ThrottlesLogins;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
@@ -10,6 +11,8 @@ use Livewire\Component;
 #[Layout('components.layouts.public')]
 class Login extends Component
 {
+    use ThrottlesLogins;
+
     public string $email = '';
 
     public string $password = '';
@@ -23,13 +26,19 @@ class Login extends Component
             'password' => ['required'],
         ]);
 
+        $this->ensureIsNotRateLimited($this->email);
+
         if (! Auth::attempt(['email' => $this->email, 'password' => $this->password, 'is_active' => true], $this->remember)) {
+            $this->hitRateLimiter($this->email);
+
             throw ValidationException::withMessages([
                 'email' => 'Identifiants incorrects ou compte désactivé.',
             ]);
         }
 
-        request()->session()->regenerate();
+        $this->clearRateLimiter($this->email);
+
+        session()->regenerate();
 
         $this->redirectRoute(auth()->user()->homeRoute(), navigate: false);
     }

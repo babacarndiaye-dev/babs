@@ -32,6 +32,7 @@
             <header class="flex items-center justify-between border-b border-black/5 bg-white px-6 py-4">
                 <h1 class="text-lg font-semibold text-ink">{{ $title }}</h1>
                 <div class="flex items-center gap-3 text-sm text-ink/70">
+                    <livewire:shared.notification-bell />
                     <span>{{ auth()->user()->name ?? '' }}</span>
                     <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold">
                         {{ Illuminate\Support\Str::of(auth()->user()->name ?? '?')->substr(0, 1) }}

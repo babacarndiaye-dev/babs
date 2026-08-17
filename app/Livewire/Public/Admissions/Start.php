@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Public\Admissions;
 
+use App\Livewire\Concerns\ThrottlesLogins;
 use App\Models\Candidate;
 use App\Models\Formation;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
@@ -15,6 +17,8 @@ use Livewire\Component;
 #[Layout('components.layouts.public')]
 class Start extends Component
 {
+    use ThrottlesLogins;
+
     public string $mode = 'register';
 
     #[Url]
@@ -45,6 +49,16 @@ class Start extends Component
 
     public function register(): void
     {
+        $ipKey = 'candidate-register|'.request()->ip();
+
+        if (RateLimiter::tooManyAttempts($ipKey, 10)) {
+            $seconds = RateLimiter::availableIn($ipKey);
+
+            throw ValidationException::withMessages([
+                'email' => "Trop de tentatives. Réessayez dans {$seconds} secondes.",
+            ]);
+        }
+
         $this->validate([
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
@@ -52,6 +66,8 @@ class Start extends Component
             'phone' => ['nullable', 'string', 'max:30'],
             'password' => ['required', 'string', 'min:8'],
         ]);
+
+        RateLimiter::hit($ipKey, 3600);
 
         $user = User::create([
             'name' => "{$this->first_name} {$this->last_name}",
@@ -70,7 +86,7 @@ class Start extends Component
         ]);
 
         Auth::login($user);
-        request()->session()->regenerate();
+        session()->regenerate();
 
         $this->redirectToWizard();
     }
@@ -82,7 +98,11 @@ class Start extends Component
             'login_password' => ['required'],
         ]);
 
+        $this->ensureIsNotRateLimited($this->login_email, 'login_email');
+
         if (! Auth::attempt(['email' => $this->login_email, 'password' => $this->login_password, 'is_active' => true])) {
+            $this->hitRateLimiter($this->login_email);
+
             throw ValidationException::withMessages(['login_email' => 'Identifiants incorrects.']);
         }
 
@@ -92,7 +112,9 @@ class Start extends Component
             throw ValidationException::withMessages(['login_email' => "Ce compte n'est pas un compte candidat."]);
         }
 
-        request()->session()->regenerate();
+        $this->clearRateLimiter($this->login_email);
+
+        session()->regenerate();
 
         $this->redirectToWizard();
     }

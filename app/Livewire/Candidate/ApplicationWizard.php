@@ -124,7 +124,10 @@ class ApplicationWizard extends Component
     {
         $this->validate([
             'formation_id' => ['required', 'exists:formations,id'],
-            'documents.piece_identite' => ['required', 'file', 'max:5120'],
+            'documents.diplome' => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'documents.piece_identite' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'documents.photo_identite' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:5120'],
+            'documents.certificat_scolarite' => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
         ]);
 
         $this->saveCandidateProfile();
@@ -152,7 +155,10 @@ class ApplicationWizard extends Component
                 continue;
             }
 
-            $path = $file->store('candidatures/'.$application->application_number, 'public');
+            // Identity documents are sensitive PII — stored on the private
+            // disk, never under public/storage, and only ever served back
+            // through an authenticated, ownership-checked route.
+            $path = $file->store('candidatures/'.$application->application_number, 'local');
 
             ApplicationDocument::create([
                 'application_id' => $application->id,

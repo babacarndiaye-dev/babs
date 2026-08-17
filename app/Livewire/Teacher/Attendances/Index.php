@@ -56,13 +56,21 @@ class Index extends Component
             ->all();
     }
 
+    /**
+     * Scoped to the authenticated teacher's own assignments — assignmentId
+     * is a public Livewire property and therefore attacker-controlled, so
+     * every lookup must reject IDs that don't belong to this teacher.
+     */
     private function currentAssignment(): ?ClassSubjectTeacher
     {
         if (! $this->assignmentId) {
             return null;
         }
 
-        return ClassSubjectTeacher::with('schoolClass.students', 'subject')->find($this->assignmentId);
+        return auth()->user()->teacher
+            ?->classAssignments()
+            ->with('schoolClass.students', 'subject')
+            ->find($this->assignmentId);
     }
 
     public function save(): void
@@ -71,7 +79,13 @@ class Index extends Component
 
         abort_unless($assignment, 404);
 
+        $rosterIds = $assignment->schoolClass->students->pluck('id')->all();
+
         foreach ($this->statuses as $studentId => $status) {
+            if (! in_array((int) $studentId, $rosterIds, true)) {
+                continue;
+            }
+
             Attendance::updateOrCreate(
                 [
                     'student_id' => $studentId,

@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\Receipt;
+use App\Notifications\PaymentRecorded;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -60,6 +61,8 @@ class Show extends Component
         $this->invoice->update([
             'status' => $newBalance <= 0 ? 'paye' : 'partiel',
         ]);
+
+        $this->invoice->student->user?->notify(new PaymentRecorded($payment->fresh('invoice')));
 
         $this->invoice->load('payments.paymentMethod', 'payments.receipt');
         $this->reset(['amount', 'payment_method_id', 'reference']);

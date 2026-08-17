@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationDocumentController;
 use App\Http\Controllers\DocumentPdfController;
 use App\Http\Controllers\ReceiptPdfController;
 use App\Http\Controllers\ReportCardPdfController;
@@ -48,6 +49,10 @@ Route::get('/recus/{payment}', [ReceiptPdfController::class, 'show'])
 Route::get('/documents/{document}', [DocumentPdfController::class, 'show'])
     ->middleware('auth')
     ->name('documents.pdf');
+
+Route::get('/candidatures-pieces/{document}', [ApplicationDocumentController::class, 'show'])
+    ->middleware('auth')
+    ->name('application-documents.show');
 
 Route::post('/deconnexion', function () {
     Auth::logout();

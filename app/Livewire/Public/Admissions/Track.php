@@ -3,6 +3,8 @@
 namespace App\Livewire\Public\Admissions;
 
 use App\Models\Application;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -23,6 +25,16 @@ class Track extends Component
             'application_number' => ['required', 'string'],
             'email' => ['required', 'email'],
         ]);
+
+        $key = 'track-application|'.request()->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 15)) {
+            throw ValidationException::withMessages([
+                'application_number' => 'Trop de tentatives. Réessayez dans quelques minutes.',
+            ]);
+        }
+
+        RateLimiter::hit($key, 300);
 
         $this->searched = true;
 

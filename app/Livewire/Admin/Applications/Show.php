@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Applications;
 use App\Models\Application;
 use App\Models\ApplicationDocument;
 use App\Models\Student;
+use App\Notifications\ApplicationStatusChanged;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -51,6 +52,8 @@ class Show extends Component
         if ($this->newStatus === 'inscrit') {
             $this->convertToStudent();
         }
+
+        $this->application->candidate->user?->notify(new ApplicationStatusChanged($this->application));
 
         $this->comment = '';
         $this->application->refresh()->load(['statusHistory' => fn ($q) => $q->latest()]);

@@ -3,6 +3,8 @@
 namespace App\Livewire\Public\Documents;
 
 use App\Models\Document;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -27,6 +29,16 @@ class Verify extends Component
     public function search(): void
     {
         $this->validate(['reference' => ['required', 'string']]);
+
+        $key = 'verify-document|'.request()->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 20)) {
+            throw ValidationException::withMessages([
+                'reference' => 'Trop de tentatives. Réessayez dans quelques minutes.',
+            ]);
+        }
+
+        RateLimiter::hit($key, 300);
 
         $this->searched = true;
         $this->result = Document::with(['template', 'documentable'])
